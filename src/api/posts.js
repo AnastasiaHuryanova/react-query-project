@@ -7,7 +7,7 @@ export async function fetchPost(id) {
   return response.json();
 }
 export async function createPost(newPost) {
-  const response = await fetch("http://localhost:4000/post", {
+  const response = await fetch("http://localhost:4000/posts/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
