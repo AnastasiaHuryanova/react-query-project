@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const PostForm = ({ onSubmit }) => {
+const PostForm = ({ onSubmit, initialValue }) => {
   const [post, setPost] = useState({
-    title: "",
-    body: "",
+    title: initialValue.title || "",
+    body: initialValue.body || "",
   });
 
   const handleChangeInput = (e) => {

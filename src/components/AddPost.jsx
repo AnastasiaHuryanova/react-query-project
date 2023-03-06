@@ -1,24 +1,30 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { v4 } from "uuid";
 import { createPost } from "../api/posts";
 import PostForm from "./PostForm";
-import { v4 } from "uuid";
 
 const AddPost = () => {
+  const queryClient = useQueryClient();
+
   const createPostMutation = useMutation({
     mutationFn: createPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      console.log("success bro");
+    },
   });
 
   const handleAddPost = (post) => {
     createPostMutation.mutate({
       id: v4(),
-      ...post
-    })
-  }
+      ...post,
+    });
+  };
 
   return (
     <div>
       <h2>AddPost</h2>
-      <PostForm onSubmit={handleAddPost} />
+      <PostForm onSubmit={handleAddPost} initialValue={{}} />
     </div>
   );
 };
